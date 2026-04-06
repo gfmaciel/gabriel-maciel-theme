@@ -41,7 +41,7 @@
                             <div style="padding: 24px; display: flex; flex-direction: column; flex: 1;">
                                 {{#if feature_image}}
                                 <div style="font-size: 32px; margin-bottom: 12px;">
-                                    <img src="{{img_url feature_image size='xs'}}" alt="" style="width: 40px; height: 40px; object-fit: contain; border-radius: 4px;">
+                                    <img src="{{img_url feature_image size='xs'}}" alt="{{title}}" style="width: 40px; height: 40px; object-fit: contain; border-radius: 4px;">
                                 </div>
                                 {{else}}
                                 <div style="font-size: 32px; margin-bottom: 12px;">🚀</div>
@@ -70,7 +70,7 @@
         {{> section-header label="Artigos" title="O que escrevo" action_href="{{@site.url}}/posts/" action_label="Ver todos →"}}
 
         <div>
-            {{#get "posts" filter="tag:-hash-projetos" limit="4"}}
+            {{#get "posts" filter="visibility:public+tag:-hash-projetos" limit="4"}}
                 {{#foreach posts}}
                 <div class="fade-in">
                     {{> post-card}}
@@ -288,3 +288,6 @@
 
     </div>
 </section>
+
+{{!-- reCAPTCHA: loaded only on this page (contact form). Script renders widget via window.onRecaptchaLoad --}}
+<script src="https://www.google.com/recaptcha/api.js?onload=onRecaptchaLoad&render=explicit" async defer></script>

@@ -8,10 +8,8 @@
     <meta name="description" content="{{meta_description}}">
 
     {{!-- Theme stylesheet --}}
+    <link rel="preload" href="{{asset 'css/screen.css'}}" as="style">
     <link rel="stylesheet" type="text/css" href="{{asset 'css/screen.css'}}">
-
-    {{!-- reCAPTCHA - loaded async, rendered on demand by main.js --}}
-    <script src="https://www.google.com/recaptcha/api.js?onload=onRecaptchaLoad&render=explicit" async defer></script>
 
     {{!-- Ghost head (SEO, structured data, members) - MUST be last in <head> --}}
     {{ghost_head}}

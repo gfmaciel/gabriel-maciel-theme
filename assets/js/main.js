@@ -278,9 +278,10 @@ function initContactForm() {
   }
 
   function getFormData() {
-    const nome     = getFieldEl('nome')     ? getFieldEl('nome').value     : '';
-    const email    = getFieldEl('email')    ? getFieldEl('email').value    : '';
-    const mensagem = getFieldEl('mensagem') ? getFieldEl('mensagem').value : '';
+    const nomeEl = getFieldEl('nome'), emailEl = getFieldEl('email'), mensagemEl = getFieldEl('mensagem');
+    const nome     = nomeEl     ? nomeEl.value     : '';
+    const email    = emailEl    ? emailEl.value    : '';
+    const mensagem = mensagemEl ? mensagemEl.value : '';
     return { nome, email, mensagem };
   }
 
