@@ -7,20 +7,6 @@
     <link rel="canonical" href="{{canonical_url}}">
     <meta name="description" content="{{meta_description}}">
 
-    {{!-- Open Graph --}}
-    <meta property="og:site_name" content="{{@site.title}}">
-    <meta property="og:type" content="website">
-    <meta property="og:title" content="{{meta_title}}">
-    <meta property="og:description" content="{{meta_description}}">
-    {{#if @site.cover_image}}
-    <meta property="og:image" content="{{img_url @site.cover_image size='xl'}}">
-    {{/if}}
-
-    {{!-- Twitter Card --}}
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="{{meta_title}}">
-    <meta name="twitter:description" content="{{meta_description}}">
-
     {{!-- Theme stylesheet --}}
     <link rel="stylesheet" type="text/css" href="{{asset 'css/screen.css'}}">
 
@@ -34,7 +20,7 @@
 
     {{> navigation}}
 
-    <div class="mobile-menu">
+    <div class="mobile-menu" id="mobile-menu">
         <a href="{{@site.url}}/posts/">Artigos</a>
         <a href="/projetos/">Projetos</a>
         <a href="/#contato" style="color: #D4A920; font-weight: 700;">Fale comigo →</a>

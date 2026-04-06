@@ -369,24 +369,17 @@ function initContactForm() {
 
     const payload = Object.assign({}, data, { recaptchaToken: token });
 
-    // Timeout fallback for demo / offline
-    const fallbackTimer = setTimeout(function () {
-      showSuccess();
-    }, 1400);
-
     fetch('/api/contact', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload)
     })
       .then(function (res) {
-        clearTimeout(fallbackTimer);
         if (!res.ok) throw new Error('HTTP ' + res.status);
         showSuccess();
       })
       .catch(function (err) {
-        clearTimeout(fallbackTimer);
-        console.error('[contact form]', err);
+        console.error('[contact form] endpoint not configured or failed:', err);
         submitBtn.disabled = false;
         submitBtn.textContent = originalBtnText;
         showGenericError();

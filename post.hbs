@@ -47,7 +47,7 @@
     {{#if tags}}
     <div class="post-tags">
         {{#foreach tags}}
-        {{#unless visibility "internal"}}
+        {{#unless (eq visibility "internal")}}
         <a href="{{url}}" class="pill" style="text-decoration: none; margin-bottom: 4px;">{{name}}</a>
         {{/unless}}
         {{/foreach}}
@@ -78,7 +78,7 @@
 </div>
 
 {{!-- ── RELATED POSTS ── --}}
-{{#get "posts" filter="tags:{{primary_tag.slug}}+id:-{{id}}" limit="3"}}
+{{#get "posts" limit="3"}}
 {{#if posts}}
 <section class="related-posts">
     <div style="max-width: 860px; margin: 0 auto;">
