@@ -1,0 +1,92 @@
+{{!< default}}
+
+{{!-- ── ARTICLES ARCHIVE ── --}}
+
+{{!-- Header --}}
+<section class="page-hero archive-header">
+    <div style="max-width: 860px; margin: 0 auto;">
+        <div class="sans section-label">Artigos</div>
+        <div class="section-bar"></div>
+        <h1 class="serif" style="font-size: clamp(36px, 6vw, 56px); font-weight: 700; color: #FFFFFF; line-height: 1.1;">O que escrevo</h1>
+        <p style="font-size: 17px; color: rgba(255,255,255,0.6); max-width: 480px; margin-top: 12px;">Automação, IA prática e lições de quem constrói — sem enrolação.</p>
+    </div>
+</section>
+
+{{!-- Post list --}}
+<section class="archive-grid">
+    <div style="max-width: 860px; margin: 0 auto;">
+
+        {{!-- Tag filter chips (populated by JS from visible tags) --}}
+        <div class="archive-filter" id="tag-filter">
+            <button class="filter-btn active" data-tag="all">Todos</button>
+        </div>
+
+        <div class="archive-list" id="posts-list">
+            {{#foreach posts}}
+            <article class="fade-in" data-tags="{{#foreach tags}}{{slug}} {{/foreach}}">
+                {{> post-card}}
+            </article>
+            {{else}}
+            <p class="sans" style="font-size: 16px; color: #6B7E8C; padding: 40px 0; text-align: center;">Nenhum artigo publicado ainda. Volte em breve!</p>
+            {{/foreach}}
+        </div>
+
+        {{!-- Pagination --}}
+        {{#if pagination}}
+        <nav class="pagination sans" aria-label="Navegação entre páginas">
+            {{#if prev}}
+            <a href="{{prev}}" class="newer-posts" style="display: flex; align-items: center; gap: 6px;">
+                ← Mais recentes
+            </a>
+            {{/if}}
+
+            <span class="page-number active">
+                Página {{pagination.page}} de {{pagination.pages}}
+            </span>
+
+            {{#if next}}
+            <a href="{{next}}" class="older-posts" style="display: flex; align-items: center; gap: 6px;">
+                Mais antigos →
+            </a>
+            {{/if}}
+        </nav>
+        {{/if}}
+
+    </div>
+</section>
+
+<script>
+// Build tag filter from post data-tags attributes
+(function() {
+    var posts = document.querySelectorAll('#posts-list article[data-tags]');
+    var tagSet = new Set();
+    posts.forEach(function(p) {
+        var tags = (p.getAttribute('data-tags') || '').trim().split(/\s+/);
+        tags.forEach(function(t) { if (t && !t.startsWith('hash-')) tagSet.add(t); });
+    });
+
+    var filterEl = document.getElementById('tag-filter');
+    tagSet.forEach(function(tag) {
+        var btn = document.createElement('button');
+        btn.className = 'filter-btn';
+        btn.dataset.tag = tag;
+        btn.textContent = tag.replace(/-/g, ' ');
+        filterEl.appendChild(btn);
+    });
+
+    filterEl.addEventListener('click', function(e) {
+        var btn = e.target.closest('.filter-btn');
+        if (!btn) return;
+        document.querySelectorAll('.filter-btn').forEach(function(b) { b.classList.remove('active'); });
+        btn.classList.add('active');
+        var tag = btn.dataset.tag;
+        posts.forEach(function(p) {
+            if (tag === 'all' || (p.getAttribute('data-tags') || '').includes(tag)) {
+                p.style.display = '';
+            } else {
+                p.style.display = 'none';
+            }
+        });
+    });
+})();
+</script>

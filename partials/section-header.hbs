@@ -1,0 +1,13 @@
+{{!-- Section header partial
+     Usage: {{> section-header label="Artigos" title="O que escrevo" action_href="/posts/" action_label="Ver todos →"}}
+     All params are optional except label. --}}
+<div style="display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 36px; flex-wrap: wrap; gap: 12px;">
+    <div>
+        <div class="sans section-label">{{label}}</div>
+        <div class="section-bar"></div>
+        {{#if title}}<h2 class="serif section-heading">{{title}}</h2>{{/if}}
+    </div>
+    {{#if action_href}}
+    <a href="{{action_href}}" class="sans link-underline-gold" style="text-decoration: none;">{{action_label}}</a>
+    {{/if}}
+</div>

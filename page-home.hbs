@@ -1,0 +1,287 @@
+{{!< default}}
+
+{{!-- ── HERO ── --}}
+<section class="hero-section" style="background: #0C2D3E; position: relative; overflow: hidden;">
+    <div style="position: absolute; top: 0; right: 0; width: 260px; height: 260px; opacity: 0.05; background-image: radial-gradient(circle, #fff 1px, transparent 1px); background-size: 20px 20px; pointer-events: none;"></div>
+    <div style="position: absolute; bottom: 0; left: 0; right: 0; height: 4px; background: linear-gradient(to right, #D4A920, transparent);"></div>
+
+    <div style="max-width: 760px; margin: 0;">
+        <div class="fade-in" data-delay="0.1" style="display: flex; align-items: center; gap: 10px; margin-bottom: 24px;">
+            <span style="font-size: 18px;">👋</span>
+            <span class="sans" style="font-size: 12px; font-weight: 600; color: rgba(255,255,255,0.5); letter-spacing: 0.1em; text-transform: uppercase;">Olá, meu nome é</span>
+        </div>
+        <h1 class="serif fade-in" data-delay="0.22" style="font-size: clamp(52px, 10vw, 96px); font-weight: 700; line-height: 0.93; letter-spacing: -0.025em; color: #FFFFFF; margin-bottom: 32px;">
+            Gabriel<br><span style="color: #D4A920;">Maciel.</span>
+        </h1>
+        <p class="sans fade-in" data-delay="0.38" style="font-size: clamp(18px, 2.4vw, 22px); font-weight: 300; line-height: 1.55; color: rgba(255,255,255,0.88); margin-bottom: 14px; max-width: 520px;">
+            Você não precisa entender de tecnologia
+            <em class="serif" style="font-style: italic; font-weight: 700; color: #FFFFFF;">para usar IA de verdade.</em>
+        </p>
+        <p class="sans fade-in" data-delay="0.48" style="font-size: clamp(15px, 1.8vw, 17px); font-weight: 300; line-height: 1.7; color: rgba(255,255,255,0.62); margin-bottom: 40px; max-width: 480px;">
+            Construo automações e ferramentas de IA — e documento cada passo aqui para você replicar no seu negócio.
+        </p>
+        <div class="hero-ctas fade-in" data-delay="0.56" style="display: flex; gap: 14px; flex-wrap: wrap;">
+            <a href="/projetos/" class="btn-gold" style="text-decoration: none;">Conhecer projetos</a>
+            <a href="#contato" class="btn-outline" style="text-decoration: none;">Trabalhe comigo</a>
+        </div>
+    </div>
+</section>
+
+{{!-- ── PROJETOS ── --}}
+<section id="projetos" class="section" style="background: #F7F8F9; border-bottom: 1px solid #DDE4E8;">
+    <div style="max-width: 860px; margin: 0 auto;">
+        {{> section-header label="Projetos" title="O que estou construindo" action_href="/projetos/" action_label="Ver todos →"}}
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 18px;">
+            {{#get "posts" filter="tag:hash-projetos" limit="3"}}
+                {{#foreach posts}}
+                <div class="fade-in">
+                    <a href="{{url}}" style="text-decoration: none; display: block; height: 100%;">
+                        <div class="card" style="height: 100%; display: flex; flex-direction: column;">
+                            <div style="padding: 24px; display: flex; flex-direction: column; flex: 1;">
+                                {{#if feature_image}}
+                                <div style="font-size: 32px; margin-bottom: 12px;">
+                                    <img src="{{img_url feature_image size='xs'}}" alt="" style="width: 40px; height: 40px; object-fit: contain; border-radius: 4px;">
+                                </div>
+                                {{else}}
+                                <div style="font-size: 32px; margin-bottom: 12px;">🚀</div>
+                                {{/if}}
+                                {{#if primary_tag}}<div style="margin-bottom: 10px;"><span class="pill">{{primary_tag.name}}</span></div>{{/if}}
+                                <h3 class="serif" style="font-size: 19px; font-weight: 700; margin-bottom: 10px; line-height: 1.25; color: #0C2D3E;">{{title}}</h3>
+                                <p class="sans" style="font-size: 14px; line-height: 1.7; color: #3A4A56; flex: 1;">{{excerpt words="20"}}</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                {{/foreach}}
+            {{else}}
+                {{!-- Fallback: no projects tagged yet --}}
+                <div class="card" style="padding: 24px; grid-column: 1/-1; text-align: center; color: #6B7E8C;">
+                    <p class="sans" style="font-size: 14px;">Em breve — projetos sendo adicionados.</p>
+                </div>
+            {{/get}}
+        </div>
+    </div>
+</section>
+
+{{!-- ── ARTIGOS ── --}}
+<section id="artigos" class="section" style="background: #FFFFFF;">
+    <div style="max-width: 860px; margin: 0 auto;">
+        {{> section-header label="Artigos" title="O que escrevo" action_href="{{@site.url}}/posts/" action_label="Ver todos →"}}
+
+        <div>
+            {{#get "posts" filter="tag:-hash-projetos" limit="4"}}
+                {{#foreach posts}}
+                <div class="fade-in">
+                    {{> post-card}}
+                </div>
+                {{/foreach}}
+            {{else}}
+                <p class="sans" style="font-size: 14px; color: #6B7E8C;">Nenhum artigo publicado ainda.</p>
+            {{/get}}
+        </div>
+    </div>
+</section>
+
+{{!-- ── YOUTUBE ── --}}
+<section id="youtube" class="section" style="background: #F7F8F9; border-top: 1px solid #DDE4E8;">
+    <div style="max-width: 860px; margin: 0 auto;">
+        {{> section-header label="YouTube" title="Quer me ver construindo?" action_href="https://youtube.com/@gabrielmaciel" action_label="Ver canal →"}}
+
+        {{!-- YouTube video cards — update src and titles as needed --}}
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px;">
+            <div class="fade-in" data-delay="0">
+                <a href="https://youtube.com/@gabrielmaciel" target="_blank" rel="noopener noreferrer" style="text-decoration: none; display: block;">
+                    <div class="card yt-card">
+                        <div style="position: relative; aspect-ratio: 16/9; overflow: hidden; background: #DDE4E8;">
+                            <img src="https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=480&q=80" alt="Como automatizar seu negócio com IA em 2025" style="width: 100%; height: 100%; object-fit: cover; display: block;" loading="lazy">
+                            <div style="position: absolute; inset: 0; background: rgba(0,0,0,0.22); display: flex; align-items: center; justify-content: center;">
+                                <div class="yt-play"><svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg></div>
+                            </div>
+                            <div class="sans" style="position: absolute; bottom: 8px; right: 8px; background: rgba(0,0,0,0.8); color: #fff; font-size: 11px; font-weight: 700; padding: 2px 6px; border-radius: 4px;">14:32</div>
+                        </div>
+                        <div style="padding: 14px 16px;">
+                            <h3 class="serif" style="font-size: 15px; font-weight: 700; line-height: 1.35; color: #111820; margin-bottom: 6px;">Como automatizar seu negócio com IA em 2025</h3>
+                            <span class="sans" style="font-size: 12px; color: #6B7E8C;">12k visualizações</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="fade-in" data-delay="0.1">
+                <a href="https://youtube.com/@gabrielmaciel" target="_blank" rel="noopener noreferrer" style="text-decoration: none; display: block;">
+                    <div class="card yt-card">
+                        <div style="position: relative; aspect-ratio: 16/9; overflow: hidden; background: #DDE4E8;">
+                            <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=480&q=80" alt="5 ferramentas de IA que uso todo dia" style="width: 100%; height: 100%; object-fit: cover; display: block;" loading="lazy">
+                            <div style="position: absolute; inset: 0; background: rgba(0,0,0,0.22); display: flex; align-items: center; justify-content: center;">
+                                <div class="yt-play"><svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg></div>
+                            </div>
+                            <div class="sans" style="position: absolute; bottom: 8px; right: 8px; background: rgba(0,0,0,0.8); color: #fff; font-size: 11px; font-weight: 700; padding: 2px 6px; border-radius: 4px;">9:47</div>
+                        </div>
+                        <div style="padding: 14px 16px;">
+                            <h3 class="serif" style="font-size: 15px; font-weight: 700; line-height: 1.35; color: #111820; margin-bottom: 6px;">5 ferramentas de IA que uso todo dia</h3>
+                            <span class="sans" style="font-size: 12px; color: #6B7E8C;">8.4k visualizações</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="fade-in" data-delay="0.2">
+                <a href="https://youtube.com/@gabrielmaciel" target="_blank" rel="noopener noreferrer" style="text-decoration: none; display: block;">
+                    <div class="card yt-card">
+                        <div style="position: relative; aspect-ratio: 16/9; overflow: hidden; background: #DDE4E8;">
+                            <img src="https://images.unsplash.com/photo-1677442135703-1787eea5ce01?w=480&q=80" alt="Construindo um agente de IA do zero" style="width: 100%; height: 100%; object-fit: cover; display: block;" loading="lazy">
+                            <div style="position: absolute; inset: 0; background: rgba(0,0,0,0.22); display: flex; align-items: center; justify-content: center;">
+                                <div class="yt-play"><svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg></div>
+                            </div>
+                            <div class="sans" style="position: absolute; bottom: 8px; right: 8px; background: rgba(0,0,0,0.8); color: #fff; font-size: 11px; font-weight: 700; padding: 2px 6px; border-radius: 4px;">21:05</div>
+                        </div>
+                        <div style="padding: 14px 16px;">
+                            <h3 class="serif" style="font-size: 15px; font-weight: 700; line-height: 1.35; color: #111820; margin-bottom: 6px;">Construindo um agente de IA do zero</h3>
+                            <span class="sans" style="font-size: 12px; color: #6B7E8C;">6.1k visualizações</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+{{!-- ── CONTATO ── --}}
+<section id="contato" class="section" style="background: #0C2D3E; position: relative; overflow: hidden;">
+    <div style="position: absolute; inset: 0; opacity: 0.04; background-image: radial-gradient(circle, #fff 1px, transparent 1px); background-size: 24px 24px; pointer-events: none;"></div>
+    <div style="max-width: 860px; margin: 0 auto; position: relative;">
+
+        <div class="fade-in" style="text-align: center; margin-bottom: 44px;">
+            <div class="sans" style="font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #D4A920; margin-bottom: 8px;">Vamos trabalhar juntos</div>
+            <div style="width: 44px; height: 3px; background: #D4A920; border-radius: 2px; margin: 0 auto 16px;"></div>
+            <h2 class="serif" style="font-size: clamp(26px, 4vw, 42px); font-weight: 700; color: #FFFFFF; line-height: 1.1; margin-bottom: 12px;">Como posso te ajudar?</h2>
+        </div>
+
+        {{!-- Step 1: Service selection --}}
+        <div class="sans" style="display: flex; align-items: center; gap: 10px; margin-bottom: 14px;">
+            <div style="width: 24px; height: 24px; border-radius: 50%; background: #D4A920; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 800; color: #0C2D3E; flex-shrink: 0;">1</div>
+            <span style="font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.5); text-transform: uppercase; letter-spacing: 0.07em;">O que você precisa?</span>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 44px;">
+            <button class="service-option"
+                data-key="consultoria"
+                data-template="Olá Gabriel, tenho uma [tipo de empresa/área] e hoje perdemos [tempo/dinheiro/recurso] com [processo específico]. Quero entender se consigo resolver isso com IA sem precisar de uma equipe técnica. Você consegue me ajudar?">
+                <div class="service-radio" style="width: 20px; height: 20px; border-radius: 50%; border: 2px solid rgba(255,255,255,0.25); display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px; transition: border-color 0.2s;">
+                    <div class="service-radio-dot" style="width: 10px; height: 10px; border-radius: 50%; background: #D4A920; display: none;"></div>
+                </div>
+                <div style="flex: 1;">
+                    <div class="service-label sans" style="font-size: 15px; font-weight: 600; color: #FFFFFF; margin-bottom: 3px; transition: color 0.2s;">Entender como aplicar IA no meu negócio</div>
+                    <div class="sans" style="font-size: 13px; color: rgba(255,255,255,0.38); line-height: 1.5;">Mapeio onde a IA pode gerar resultado real para você — sem promessas vazias.</div>
+                </div>
+                <span style="font-size: 20px; flex-shrink: 0;">🔍</span>
+            </button>
+
+            <button class="service-option"
+                data-key="desenvolvimento"
+                data-template="Olá Gabriel, preciso automatizar [processo específico] na minha empresa. Hoje fazemos isso manualmente e leva [tempo/custo aproximado]. Quero saber se você consegue construir uma solução para isso.">
+                <div class="service-radio" style="width: 20px; height: 20px; border-radius: 50%; border: 2px solid rgba(255,255,255,0.25); display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px; transition: border-color 0.2s;">
+                    <div class="service-radio-dot" style="width: 10px; height: 10px; border-radius: 50%; background: #D4A920; display: none;"></div>
+                </div>
+                <div style="flex: 1;">
+                    <div class="service-label sans" style="font-size: 15px; font-weight: 600; color: #FFFFFF; margin-bottom: 3px; transition: color 0.2s;">Desenvolver uma solução de IA para mim</div>
+                    <div class="sans" style="font-size: 13px; color: rgba(255,255,255,0.38); line-height: 1.5;">Construo soluções personalizadas com IA para automatizar processos ou criar novos produtos.</div>
+                </div>
+                <span style="font-size: 20px; flex-shrink: 0;">🛠️</span>
+            </button>
+
+            <button class="service-option"
+                data-key="treinamento"
+                data-template="Olá Gabriel, tenho um time de [tamanho] pessoas em [área/setor] e quero que eles usem IA para [objetivo]. O maior obstáculo hoje é [barreira principal]. Podemos conversar sobre um treinamento?">
+                <div class="service-radio" style="width: 20px; height: 20px; border-radius: 50%; border: 2px solid rgba(255,255,255,0.25); display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px; transition: border-color 0.2s;">
+                    <div class="service-radio-dot" style="width: 10px; height: 10px; border-radius: 50%; background: #D4A920; display: none;"></div>
+                </div>
+                <div style="flex: 1;">
+                    <div class="service-label sans" style="font-size: 15px; font-weight: 600; color: #FFFFFF; margin-bottom: 3px; transition: color 0.2s;">Treinar meu time a ser mais produtivo com IA</div>
+                    <div class="sans" style="font-size: 13px; color: rgba(255,255,255,0.38); line-height: 1.5;">Ensino times a usar ferramentas de IA no dia a dia, de forma prática e sem jargão técnico.</div>
+                </div>
+                <span style="font-size: 20px; flex-shrink: 0;">🎓</span>
+            </button>
+        </div>
+
+        <div style="height: 1px; background: rgba(255,255,255,0.07); margin-bottom: 40px;"></div>
+
+        {{!-- Step 2: Form --}}
+        <div id="form-section">
+            <div class="sans" style="display: flex; align-items: center; gap: 10px; margin-bottom: 28px;">
+                <div id="step2-indicator" style="width: 24px; height: 24px; border-radius: 50%; background: rgba(255,255,255,0.15); display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 800; color: rgba(255,255,255,0.4); flex-shrink: 0; transition: background 0.3s, color 0.3s;">2</div>
+                <span id="step2-label" class="sans" style="font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.22); text-transform: uppercase; letter-spacing: 0.07em; transition: color 0.3s;">Seus dados</span>
+            </div>
+
+            <div class="contact-grid" style="display: grid; grid-template-columns: 1fr 1.5fr; gap: 48px; align-items: start;">
+                {{!-- Left: contact info --}}
+                <div>
+                    <h3 class="serif" style="font-size: 20px; font-weight: 700; color: #FFFFFF; margin-bottom: 10px;">Me manda uma mensagem</h3>
+                    <p class="sans" style="font-size: 14px; line-height: 1.75; color: rgba(255,255,255,0.4); margin-bottom: 24px;">Você também pode me escrever diretamente:</p>
+                    <div style="display: flex; flex-direction: column; gap: 10px;">
+                        <div class="contact-chip">
+                            <div style="width: 32px; height: 32px; border-radius: 6px; background: rgba(255,255,255,0.08); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.55)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+                            </div>
+                            <div>
+                                <div class="sans" style="font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #D4A920; margin-bottom: 2px;">Email</div>
+                                <div class="sans" style="font-size: 12px; color: rgba(255,255,255,0.38);">contato@gabrielmaciel.com.br</div>
+                            </div>
+                        </div>
+                        <div class="contact-chip">
+                            <div style="width: 32px; height: 32px; border-radius: 6px; background: #0A66C2; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                            </div>
+                            <div>
+                                <div class="sans" style="font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #D4A920; margin-bottom: 2px;">LinkedIn</div>
+                                <div class="sans" style="font-size: 12px; color: rgba(255,255,255,0.38);">linkedin.com/in/gabrielmaciel</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {{!-- Right: form --}}
+                <div>
+                    <div id="contact-success" style="display: none; background: #163B50; border: 2px solid #D4A920; border-radius: 12px; padding: 40px; text-align: center;">
+                        <div style="font-size: 44px; margin-bottom: 14px;">✅</div>
+                        <h3 class="serif" style="font-size: 22px; font-weight: 700; color: #FFFFFF; margin-bottom: 8px;">Mensagem enviada!</h3>
+                        <p class="sans" style="font-size: 14px; color: rgba(255,255,255,0.45);">Obrigado. Vou te responder em breve.</p>
+                    </div>
+
+                    <form id="contact-form" novalidate style="display: flex; flex-direction: column; gap: 14px;">
+                        <div class="float-field" data-field="nome">
+                            <input type="text" id="nome" name="nome" autocomplete="name">
+                            <label for="nome">Seu nome</label>
+                        </div>
+                        <div class="float-field" data-field="email">
+                            <input type="email" id="email" name="email" autocomplete="email">
+                            <label for="email">Seu email</label>
+                        </div>
+                        <div class="float-field" data-field="mensagem">
+                            <textarea id="mensagem" name="mensagem" rows="5" data-maxlen="600"></textarea>
+                            <label for="mensagem">Mensagem</label>
+                        </div>
+
+                        <div id="template-hint" class="sans" style="display: none; font-size: 12px; color: rgba(255,255,255,0.3); line-height: 1.5; margin-top: -4px;">
+                            💡 Preencha os campos entre [ ] com as informações do seu negócio.
+                        </div>
+
+                        {{!-- reCAPTCHA --}}
+                        <div class="recaptcha-wrap">
+                            <div id="recaptcha-container"
+                                data-sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"
+                                style="display: inline-block; border-radius: 6px; overflow: hidden; border: 2px solid transparent; transition: border-color 0.2s;"></div>
+                            <div id="recaptcha-error" class="recaptcha-error-msg" style="display: none;">
+                                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#D94F4F" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                                Por favor, confirme que você não é um robô.
+                            </div>
+                        </div>
+
+                        <button type="submit" id="contact-submit" class="btn-gold" style="align-self: flex-start; display: flex; align-items: center; gap: 8px;">
+                            Enviar mensagem →
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>

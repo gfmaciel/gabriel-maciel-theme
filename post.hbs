@@ -1,0 +1,113 @@
+{{!< default}}
+
+{{#post}}
+
+{{!-- ── POST HERO ── --}}
+<section class="page-hero post-hero">
+    <div style="max-width: 860px; margin: 0 auto;">
+        <div class="post-hero-meta">
+            {{#if primary_tag}}
+            <a href="{{primary_tag.url}}" class="pill" style="text-decoration: none;">{{primary_tag.name}}</a>
+            {{/if}}
+            {{#if featured}}
+            <span class="pill" style="background: #D4A920; color: #0C2D3E;">Destaque</span>
+            {{/if}}
+        </div>
+        <h1 class="serif">{{title}}</h1>
+        <div class="post-hero-info">
+            <span>{{date format="DD MMM YYYY"}}</span>
+            <span>·</span>
+            <span>{{reading_time}}</span>
+            {{#if primary_author}}
+            <span>·</span>
+            <span>{{primary_author.name}}</span>
+            {{/if}}
+        </div>
+    </div>
+</section>
+
+{{!-- Feature image --}}
+{{#if feature_image}}
+<div style="max-height: 480px; overflow: hidden;">
+    <img src="{{img_url feature_image size='l'}}" alt="{{#if feature_image_alt}}{{feature_image_alt}}{{else}}{{title}}{{/if}}" class="post-feature-image">
+</div>
+{{/if}}
+
+{{!-- ── POST BODY ── --}}
+<article class="post-body">
+    <div class="post-content {{post_class}}">
+        {{{content}}}
+    </div>
+</article>
+
+{{!-- ── POST FOOTER ── --}}
+<div class="post-footer">
+
+    {{!-- Tags --}}
+    {{#if tags}}
+    <div class="post-tags">
+        {{#foreach tags}}
+        {{#unless visibility "internal"}}
+        <a href="{{url}}" class="pill" style="text-decoration: none; margin-bottom: 4px;">{{name}}</a>
+        {{/unless}}
+        {{/foreach}}
+    </div>
+    {{/if}}
+
+    {{!-- Author --}}
+    {{#if primary_author}}
+    <div class="post-author">
+        {{#if primary_author.profile_image}}
+        <img src="{{img_url primary_author.profile_image size='xs'}}" alt="{{primary_author.name}}" loading="lazy">
+        {{else}}
+        <div style="width: 64px; height: 64px; border-radius: 50%; background: #0C2D3E; display: flex; align-items: center; justify-content: center; font-size: 24px; font-weight: 700; color: #D4A920; font-family: Georgia, serif; flex-shrink: 0;">GM</div>
+        {{/if}}
+        <div class="post-author-info">
+            <h4>{{primary_author.name}}</h4>
+            {{#if primary_author.bio}}<p>{{primary_author.bio}}</p>{{/if}}
+            <a href="{{primary_author.url}}" class="sans" style="font-size: 13px; color: #D4A920; font-weight: 600; text-decoration: none; margin-top: 8px; display: inline-block;">Ver todos os artigos →</a>
+        </div>
+    </div>
+    {{/if}}
+
+    {{!-- Back to articles --}}
+    <div style="margin-top: 40px; padding-top: 32px; border-top: 1px solid #DDE4E8; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;">
+        <a href="{{@site.url}}/posts/" class="sans" style="font-size: 14px; font-weight: 600; color: #0C2D3E; text-decoration: none; border-bottom: 2px solid #D4A920; padding-bottom: 2px;">← Voltar para artigos</a>
+        <a href="/#contato" class="btn-gold" style="text-decoration: none; font-size: 13px; padding: 10px 20px;">Trabalhe comigo</a>
+    </div>
+</div>
+
+{{!-- ── RELATED POSTS ── --}}
+{{#get "posts" filter="tags:{{primary_tag.slug}}+id:-{{id}}" limit="3"}}
+{{#if posts}}
+<section class="related-posts">
+    <div style="max-width: 860px; margin: 0 auto;">
+        <div style="margin-bottom: 28px;">
+            <div class="sans" style="font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #D4A920; margin-bottom: 8px;">Leia também</div>
+            <div style="width: 44px; height: 3px; background: #D4A920; border-radius: 2px; margin-bottom: 16px;"></div>
+            <h2 class="serif" style="font-size: clamp(20px, 3vw, 28px); font-weight: 700; color: #0C2D3E;">Artigos relacionados</h2>
+        </div>
+        <div class="related-grid">
+            {{#foreach posts}}
+            <a href="{{url}}" style="text-decoration: none; display: block;">
+                <div class="card" style="height: 100%; display: flex; flex-direction: column;">
+                    {{#if feature_image}}
+                    <div style="aspect-ratio: 16/9; overflow: hidden;">
+                        <img src="{{img_url feature_image size='s'}}" alt="{{title}}" style="width: 100%; height: 100%; object-fit: cover; display: block;" loading="lazy">
+                    </div>
+                    {{/if}}
+                    <div style="padding: 18px 20px; flex: 1; display: flex; flex-direction: column;">
+                        {{#if primary_tag}}<span class="pill" style="margin-bottom: 10px; display: inline-block;">{{primary_tag.name}}</span>{{/if}}
+                        <h3 class="serif" style="font-size: 16px; font-weight: 700; line-height: 1.3; color: #0C2D3E; margin-bottom: 8px; flex: 1;">{{title}}</h3>
+                        <span class="sans" style="font-size: 12px; color: #D4A920; font-weight: 600;">Ler →</span>
+                    </div>
+                </div>
+            </a>
+            {{/foreach}}
+        </div>
+    </div>
+</section>
+{{/if}}
+{{/get}}
+
+{{/post}}

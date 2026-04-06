@@ -1,0 +1,149 @@
+{{!< default}}
+
+{{!-- ── FREEBIE LANDING PAGE ── --}}
+{{!-- Usage: Create a Ghost page with this template. Set title, content for description/benefits.
+     The form below can be wired to any email service (Mailchimp, ConvertKit, etc.)
+     Replace action="#" with your form endpoint and add the appropriate hidden fields. --}}
+
+{{#post}}
+
+{{!-- Hero --}}
+<section class="freebie-hero">
+    <div style="position: absolute; top: 0; right: 0; width: 300px; height: 300px; opacity: 0.04; background-image: radial-gradient(circle, #fff 1px, transparent 1px); background-size: 20px 20px; pointer-events: none;"></div>
+
+    <div class="fade-in">
+        <div class="freebie-badge">Grátis · {{date format="YYYY"}}</div>
+        <h1 class="serif">{{title}}</h1>
+        <p class="sans subtitle">
+            {{#if custom_excerpt}}{{custom_excerpt}}{{else}}Baixe agora e comece a aplicar imediatamente no seu negócio.{{/if}}
+        </p>
+    </div>
+
+    {{!-- Lead capture form --}}
+    <div class="fade-in" data-delay="0.3">
+        <div class="freebie-form-box">
+            <h3>Quero receber grátis</h3>
+            <p>Preencha abaixo e receba no seu email agora.</p>
+
+            <div id="freebie-success" style="display: none; text-align: center; padding: 20px 0;">
+                <div style="font-size: 36px; margin-bottom: 10px;">🎉</div>
+                <p class="sans" style="font-weight: 600; color: #0C2D3E; font-size: 15px;">Enviado! Verifique seu email.</p>
+            </div>
+
+            <form id="freebie-form" novalidate action="#" method="post">
+                {{!-- Replace action above with your email service endpoint --}}
+                {{!-- e.g. Mailchimp: https://xxx.list-manage.com/subscribe/post?u=...&id=... --}}
+
+                <div style="display: flex; flex-direction: column; gap: 12px;">
+                    <div class="float-field" data-field="freebie-nome" style="background: none;">
+                        <input type="text" id="freebie-nome" name="FNAME" autocomplete="given-name"
+                            style="background: #F7F8F9; border-color: #DDE4E8;">
+                        <label for="freebie-nome" style="color: #6B7E8C;">Seu nome</label>
+                    </div>
+                    <div class="float-field" data-field="freebie-email" style="background: none;">
+                        <input type="email" id="freebie-email" name="EMAIL" autocomplete="email" required
+                            style="background: #F7F8F9; border-color: #DDE4E8;">
+                        <label for="freebie-email" style="color: #6B7E8C;">Seu melhor email *</label>
+                    </div>
+
+                    <button type="submit" id="freebie-submit" class="btn-gold" style="width: 100%; justify-content: center; display: flex; align-items: center; gap: 8px; padding: 14px 24px; font-size: 15px;">
+                        Quero receber grátis →
+                    </button>
+                </div>
+
+                <p class="sans" style="font-size: 11px; color: #6B7E8C; margin-top: 12px; text-align: center; line-height: 1.5;">
+                    Sem spam. Cancele quando quiser. Seus dados estão seguros.
+                </p>
+            </form>
+        </div>
+    </div>
+</section>
+
+{{!-- Benefits --}}
+<section class="freebie-benefits">
+    <div style="max-width: 760px; margin: 0 auto;">
+        <div style="text-align: center; margin-bottom: 44px;">
+            <div class="sans" style="font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #D4A920; margin-bottom: 8px;">O que você vai receber</div>
+            <div style="width: 44px; height: 3px; background: #D4A920; border-radius: 2px; margin: 0 auto 16px;"></div>
+            <h2 class="serif" style="font-size: clamp(22px, 4vw, 34px); font-weight: 700; color: #0C2D3E;">Por que vale o seu email</h2>
+        </div>
+
+        {{!-- Post content renders the benefit list written in Ghost editor --}}
+        {{#if content}}
+        <div class="post-content" style="max-width: 680px; margin: 0 auto;">
+            {{{content}}}
+        </div>
+        {{else}}
+        {{!-- Default benefits if no content written in Ghost --}}
+        <div class="benefits-grid">
+            <div class="benefit-item fade-in">
+                <div class="benefit-icon">📋</div>
+                <h4>Pronto para usar</h4>
+                <p>Nada de teoria sem aplicação. Você baixa e já consegue colocar em prática hoje.</p>
+            </div>
+            <div class="benefit-item fade-in" data-delay="0.1">
+                <div class="benefit-icon">⚡</div>
+                <h4>Economize horas</h4>
+                <p>Criado a partir de experiência real. Cada item foi testado antes de chegar até você.</p>
+            </div>
+            <div class="benefit-item fade-in" data-delay="0.2">
+                <div class="benefit-icon">🎯</div>
+                <h4>Resultado direto</h4>
+                <p>Focado em resultado prático, não em impressionar. Simples de entender e de executar.</p>
+            </div>
+        </div>
+        {{/if}}
+    </div>
+</section>
+
+{{!-- Trust signals --}}
+<section class="freebie-trust">
+    <div class="trust-items">
+        <div class="trust-item">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#D4A920" stroke-width="2" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            100% gratuito
+        </div>
+        <div class="trust-item">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#D4A920" stroke-width="2" stroke-linecap="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 01-.68-.01C7.5 20.5 4 18 4 13V6a1 1 0 011-.73l7-2.67a1 1 0 01.68 0l7 2.67A1 1 0 0120 6z"/></svg>
+            Sem spam
+        </div>
+        <div class="trust-item">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#D4A920" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            Acesso imediato
+        </div>
+        <div class="trust-item">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#D4A920" stroke-width="2" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+            Cancele quando quiser
+        </div>
+    </div>
+</section>
+
+{{/post}}
+
+<script>
+(function() {
+    var form = document.getElementById('freebie-form');
+    var success = document.getElementById('freebie-success');
+    var submitBtn = document.getElementById('freebie-submit');
+    if (!form) return;
+
+    form.addEventListener('submit', function(e) {
+        // If action is still '#', prevent default and show demo success
+        if (form.getAttribute('action') === '#') {
+            e.preventDefault();
+            var emailField = document.getElementById('freebie-email');
+            if (!emailField || !emailField.value.trim() || !/\S+@\S+\.\S+/.test(emailField.value)) {
+                emailField && emailField.parentElement.classList.add('has-error');
+                return;
+            }
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Enviando...';
+            setTimeout(function() {
+                form.style.display = 'none';
+                success.style.display = 'block';
+            }, 800);
+        }
+        // If a real endpoint is set, the form submits normally (or you can use fetch here)
+    });
+})();
+</script>

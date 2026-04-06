@@ -1,0 +1,64 @@
+{{!< default}}
+
+{{!-- ── PROJECTS PAGE ── --}}
+
+{{!-- Hero --}}
+<section class="page-hero projects-hero">
+    <div style="max-width: 860px; margin: 0 auto;">
+        <div class="sans section-label">Projetos</div>
+        <div class="section-bar"></div>
+        <h1 class="serif" style="font-size: clamp(36px, 6vw, 56px); font-weight: 700; color: #FFFFFF; line-height: 1.1;">O que estou construindo</h1>
+        <p style="margin-top: 12px; max-width: 520px;">Produtos e ferramentas que desenvolvi na interseção de IA, automação e negócios reais.</p>
+    </div>
+</section>
+
+{{!-- Projects grid --}}
+<section class="projects-grid">
+    <div class="projects-container">
+        {{#get "posts" filter="tag:hash-projetos" limit="all"}}
+            {{#foreach posts}}
+            <div class="fade-in">
+                <a href="{{url}}" style="text-decoration: none; display: block; height: 100%;">
+                    <article class="project-card">
+                        {{#if feature_image}}
+                        <div class="img-ratio-16-9">
+                            <img src="{{img_url feature_image size='s'}}" alt="{{title}}" style="transition: transform 0.4s ease;" loading="lazy">
+                        </div>
+                        {{/if}}
+                        <div class="project-card-body">
+                            {{#unless feature_image}}
+                            <span class="project-emoji">🚀</span>
+                            {{/unless}}
+                            {{#if primary_tag}}
+                            <div style="margin-bottom: 10px;"><span class="pill">{{primary_tag.name}}</span></div>
+                            {{/if}}
+                            <h3>{{title}}</h3>
+                            <p>{{excerpt words="30"}}</p>
+                        </div>
+                        <div class="project-card-footer">
+                            <span class="sans" style="font-size: 13px; color: #D4A920; font-weight: 600;">Ver projeto →</span>
+                        </div>
+                    </article>
+                </a>
+            </div>
+            {{/foreach}}
+        {{else}}
+            {{!-- Fallback when no projects tagged yet --}}
+            <div style="grid-column: 1/-1; text-align: center; padding: 60px 20px; color: #6B7E8C;">
+                <div style="font-size: 48px; margin-bottom: 16px;">🔧</div>
+                <p class="sans" style="font-size: 16px;">Projetos sendo adicionados em breve.</p>
+            </div>
+        {{/get}}
+    </div>
+</section>
+
+{{!-- CTA --}}
+<section class="projects-cta">
+    <div style="max-width: 600px; margin: 0 auto;">
+        <div class="sans" style="font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #D4A920; margin-bottom: 10px;">Tem um projeto em mente?</div>
+        <div style="width: 44px; height: 3px; background: #D4A920; border-radius: 2px; margin: 0 auto 20px;"></div>
+        <h2>Vamos construir juntos</h2>
+        <p>Se você tem um problema de negócio e acredita que IA pode resolver, me conta. Costumo responder em até 24h.</p>
+        <a href="/#contato" class="btn-gold" style="text-decoration: none; display: inline-block; margin-top: 28px;">Fale comigo →</a>
+    </div>
+</section>
