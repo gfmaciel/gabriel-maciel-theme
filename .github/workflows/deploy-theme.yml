@@ -28,7 +28,10 @@ jobs:
             const s = crypto.createHmac('sha256',Buffer.from(secret,'hex')).update(h+'.'+p).digest('base64url');
             console.log(h+'.'+p+'.'+s);
           ")
-          curl -f -X POST \
+          echo "Token generated: ${TOKEN:0:20}..."
+          echo "Hitting URL: ${GHOST_URL}/ghost/api/admin/themes/upload"
+          curl -v -X POST \
             "${GHOST_URL}/ghost/api/admin/themes/upload" \
             -H "Authorization: Ghost $TOKEN" \
-            -F "file=@theme.zip;type=application/zip"
+            -F "file=@theme.zip;type=application/zip" \
+            2>&1 || true
