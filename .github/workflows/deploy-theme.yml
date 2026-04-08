@@ -10,8 +10,25 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Deploy Ghost Theme
-        uses: TryGhost/action-deploy-theme@v1
-        with:
-          api-url: ${{ secrets.GHOST_ADMIN_API_URL }}
-          api-key: ${{ secrets.GHOST_ADMIN_API_KEY }}
+
+      - name: Zip theme
+        run: zip -r theme.zip . -x "*.git*" "*.zip" "node_modules/*"
+
+      - name: Upload to Ghost
+        env:
+          GHOST_URL: ${{ secrets.GHOST_ADMIN_API_URL }}
+          GHOST_KEY: ${{ secrets.GHOST_ADMIN_API_KEY }}
+        run: |
+          TOKEN=$(node -e "
+            const crypto = require('crypto');
+            const [id, secret] = process.env.GHOST_KEY.split(':');
+            const now = Math.floor(Date.now() / 1000);
+            const h = Buffer.from(JSON.stringify({alg:'HS256',kid:id,typ:'JWT'})).toString('base64url');
+            const p = Buffer.from(JSON.stringify({iat:now,exp:now+300,aud:'/admin/'})).toString('base64url');
+            const s = crypto.createHmac('sha256',Buffer.from(secret,'hex')).update(h+'.'+p).digest('base64url');
+            console.log(h+'.'+p+'.'+s);
+          ")
+          curl -f -X POST \
+            "${GHOST_URL}/ghost/api/admin/themes/upload" \
+            -H "Authorization: Ghost $TOKEN" \
+            -F "file=@theme.zip;type=application/zip"
