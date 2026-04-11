@@ -98,8 +98,8 @@ a { text-decoration: none; color: inherit; }
 /* Mobile menu */
 .mobile-menu { display:none;flex-direction:column;gap:0;position:fixed;top:64px;left:0;right:0;z-index:98;background:#FFFFFF;border-bottom:1px solid #DDE4E8;box-shadow:0 8px 24px rgba(0,0,0,.08); }
 .mobile-menu.open { display:flex; }
-.mobile-menu button { display:block;width:100%;padding:16px 24px;font-size:16px;font-weight:500;color:#111820;background:none;border:none;border-bottom:1px solid #DDE4E8;text-align:left;cursor:pointer;font-family:-apple-system,'Segoe UI',sans-serif; }
-.mobile-menu button:last-child { border-bottom:none; }
+.mobile-menu button, .mobile-menu a { display:block;width:100%;padding:16px 24px;font-size:16px;font-weight:500;color:#111820;background:none;border:none;border-bottom:1px solid #DDE4E8;text-align:left;cursor:pointer;font-family:-apple-system,'Segoe UI',sans-serif; }
+.mobile-menu button:last-child, .mobile-menu a:last-child { border-bottom:none; }
 
 @media (min-width: 769px) {
   .hamburger { display: none !important; }
