@@ -26,12 +26,7 @@
             {{#if errorMessage}}{{errorMessage}}{{else}}Página não encontrada{{/if}}
         </h1>
         <p class="sans" style="font-size: 16px; color: rgba(255,255,255,0.5); line-height: 1.7; margin-bottom: 36px;">
-            {{#if statusCode}}
-                {{#is statusCode "404"}}A página que você procura não existe ou foi movida.{{/is}}
-                {{#is statusCode "500"}}Algo deu errado no servidor. Tente novamente em alguns instantes.{{/is}}
-            {{else}}
-                Algo deu errado. Tente voltar para o início.
-            {{/if}}
+            A página que você procura não existe ou foi movida. Tente voltar para o início.
         </p>
         <div style="display: flex; gap: 14px; justify-content: center; flex-wrap: wrap;">
             <a href="/" class="btn-gold" style="text-decoration: none;">Voltar para o início</a>
