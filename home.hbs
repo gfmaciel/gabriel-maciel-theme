@@ -25,6 +25,11 @@
             <a href="#contato" class="btn-outline" style="text-decoration: none;">Trabalhe comigo</a>
         </div>
     </div>
+
+    {{!-- Scroll cue --}}
+    <a href="#projetos" class="sans" style="position: absolute; bottom: 28px; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 6px; color: rgba(255,255,255,0.35); font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; transition: color 0.2s;" aria-label="Ver mais">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="animation: scrollBounce 2s ease-in-out infinite;"><polyline points="6 9 12 15 18 9"/></svg>
+    </a>
 </section>
 
 {{!-- ── PROJETOS ── --}}
@@ -86,57 +91,50 @@
 {{!-- ── YOUTUBE ── --}}
 <section id="youtube" class="section" style="background: #F7F8F9; border-top: 1px solid #DDE4E8;">
     <div style="max-width: 860px; margin: 0 auto;">
-        {{> section-header label="YouTube" title="Quer me ver construindo?" action_href="https://youtube.com/@gabrielmaciel" action_label="Ver canal →"}}
+        {{> section-header label="YouTube" title="Quer me ver construindo?" action_href="https://www.youtube.com/channel/UCVd9YQXL3zjGjNNLMckR0OA" action_label="Ver canal →"}}
 
-        {{!-- YouTube video cards — update src and titles as needed --}}
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px;">
             <div class="fade-in" data-delay="0">
-                <a href="https://youtube.com/@gabrielmaciel" target="_blank" rel="noopener noreferrer" style="text-decoration: none; display: block;">
+                <a href="https://www.youtube.com/watch?v=P8jVlOAN1Mg" target="_blank" rel="noopener noreferrer" style="text-decoration: none; display: block;">
                     <div class="card yt-card">
                         <div style="position: relative; aspect-ratio: 16/9; overflow: hidden; background: #DDE4E8;">
-                            <img src="https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=480&q=80" alt="Como automatizar seu negócio com IA em 2025" style="width: 100%; height: 100%; object-fit: cover; display: block;" loading="lazy">
+                            <img src="https://img.youtube.com/vi/P8jVlOAN1Mg/hqdefault.jpg" alt="Como Criar uma IA Geradora de Prompts? (100% Gratuito)" style="width: 100%; height: 100%; object-fit: cover; display: block;" loading="lazy">
                             <div style="position: absolute; inset: 0; background: rgba(0,0,0,0.22); display: flex; align-items: center; justify-content: center;">
                                 <div class="yt-play"><svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg></div>
                             </div>
-                            <div class="sans" style="position: absolute; bottom: 8px; right: 8px; background: rgba(0,0,0,0.8); color: #fff; font-size: 11px; font-weight: 700; padding: 2px 6px; border-radius: 4px;">14:32</div>
                         </div>
                         <div style="padding: 14px 16px;">
-                            <h3 class="serif" style="font-size: 15px; font-weight: 700; line-height: 1.35; color: #111820; margin-bottom: 6px;">Como automatizar seu negócio com IA em 2025</h3>
-                            <span class="sans" style="font-size: 12px; color: #6B7E8C;">12k visualizações</span>
+                            <h3 class="serif" style="font-size: 15px; font-weight: 700; line-height: 1.35; color: #111820; margin-bottom: 6px;">Como Criar uma IA Geradora de Prompts? (100% Gratuito)</h3>
                         </div>
                     </div>
                 </a>
             </div>
             <div class="fade-in" data-delay="0.1">
-                <a href="https://youtube.com/@gabrielmaciel" target="_blank" rel="noopener noreferrer" style="text-decoration: none; display: block;">
+                <a href="https://www.youtube.com/watch?v=Zgr8rNUZWwg" target="_blank" rel="noopener noreferrer" style="text-decoration: none; display: block;">
                     <div class="card yt-card">
                         <div style="position: relative; aspect-ratio: 16/9; overflow: hidden; background: #DDE4E8;">
-                            <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=480&q=80" alt="5 ferramentas de IA que uso todo dia" style="width: 100%; height: 100%; object-fit: cover; display: block;" loading="lazy">
+                            <img src="https://img.youtube.com/vi/Zgr8rNUZWwg/hqdefault.jpg" alt="Criei um Editor de Vídeo com IA (sem saber programar)" style="width: 100%; height: 100%; object-fit: cover; display: block;" loading="lazy">
                             <div style="position: absolute; inset: 0; background: rgba(0,0,0,0.22); display: flex; align-items: center; justify-content: center;">
                                 <div class="yt-play"><svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg></div>
                             </div>
-                            <div class="sans" style="position: absolute; bottom: 8px; right: 8px; background: rgba(0,0,0,0.8); color: #fff; font-size: 11px; font-weight: 700; padding: 2px 6px; border-radius: 4px;">9:47</div>
                         </div>
                         <div style="padding: 14px 16px;">
-                            <h3 class="serif" style="font-size: 15px; font-weight: 700; line-height: 1.35; color: #111820; margin-bottom: 6px;">5 ferramentas de IA que uso todo dia</h3>
-                            <span class="sans" style="font-size: 12px; color: #6B7E8C;">8.4k visualizações</span>
+                            <h3 class="serif" style="font-size: 15px; font-weight: 700; line-height: 1.35; color: #111820; margin-bottom: 6px;">Criei um Editor de Vídeo com IA (sem saber programar)</h3>
                         </div>
                     </div>
                 </a>
             </div>
             <div class="fade-in" data-delay="0.2">
-                <a href="https://youtube.com/@gabrielmaciel" target="_blank" rel="noopener noreferrer" style="text-decoration: none; display: block;">
+                <a href="https://www.youtube.com/watch?v=U4C7dgRkLhQ" target="_blank" rel="noopener noreferrer" style="text-decoration: none; display: block;">
                     <div class="card yt-card">
                         <div style="position: relative; aspect-ratio: 16/9; overflow: hidden; background: #DDE4E8;">
-                            <img src="https://images.unsplash.com/photo-1677442135703-1787eea5ce01?w=480&q=80" alt="Construindo um agente de IA do zero" style="width: 100%; height: 100%; object-fit: cover; display: block;" loading="lazy">
+                            <img src="https://img.youtube.com/vi/U4C7dgRkLhQ/hqdefault.jpg" alt="Para meu Eu do Futuro: Construindo um Diário de Bordo com IA" style="width: 100%; height: 100%; object-fit: cover; display: block;" loading="lazy">
                             <div style="position: absolute; inset: 0; background: rgba(0,0,0,0.22); display: flex; align-items: center; justify-content: center;">
                                 <div class="yt-play"><svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg></div>
                             </div>
-                            <div class="sans" style="position: absolute; bottom: 8px; right: 8px; background: rgba(0,0,0,0.8); color: #fff; font-size: 11px; font-weight: 700; padding: 2px 6px; border-radius: 4px;">21:05</div>
                         </div>
                         <div style="padding: 14px 16px;">
-                            <h3 class="serif" style="font-size: 15px; font-weight: 700; line-height: 1.35; color: #111820; margin-bottom: 6px;">Construindo um agente de IA do zero</h3>
-                            <span class="sans" style="font-size: 12px; color: #6B7E8C;">6.1k visualizações</span>
+                            <h3 class="serif" style="font-size: 15px; font-weight: 700; line-height: 1.35; color: #111820; margin-bottom: 6px;">Para meu "Eu do Futuro": Construindo um Diário de Bordo com IA</h3>
                         </div>
                     </div>
                 </a>

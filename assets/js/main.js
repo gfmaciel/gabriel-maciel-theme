@@ -149,6 +149,12 @@ function initFadeIn() {
   const elements = document.querySelectorAll('.fade-in');
   if (!elements.length) return;
 
+  // Mark elements as will-animate BEFORE observing so they start hidden only
+  // after JS has run — prevents flash of invisible content on slow connections.
+  elements.forEach(function (el) {
+    el.classList.add('will-animate');
+  });
+
   const observer = new IntersectionObserver(function (entries) {
     entries.forEach(function (entry) {
       if (entry.isIntersecting) {

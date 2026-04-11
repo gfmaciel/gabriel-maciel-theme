@@ -258,7 +258,7 @@ a { text-decoration: none; color: inherit; }
 }
 @media (max-width: 640px) {
   .section { padding-left: 20px !important; padding-right: 20px !important; padding-top: 56px !important; padding-bottom: 56px !important; }
-  .hero-section { padding-left: 20px !important; padding-right: 20px !important; padding-top: 100px !important; padding-bottom: 64px !important; }
+  .hero-section { padding-left: 20px !important; padding-right: 20px !important; padding-top: 80px !important; padding-bottom: 56px !important; }
   .footer-inner { flex-direction: column !important; align-items: center !important; text-align: center !important; gap: 20px !important; }
   .archive-grid, .projects-grid, .freebie-benefits, .freebie-trust { padding-left: 20px; padding-right: 20px; }
   .post-body, .post-footer, .related-posts { padding-left: 20px; padding-right: 20px; }
@@ -280,5 +280,8 @@ a { text-decoration: none; color: inherit; }
    Animations
    --------------------------------------------------------------------------- */
 @keyframes spin { to { transform: rotate(360deg); } }
-.fade-in { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
-.fade-in.visible { opacity: 1; transform: none; }
+@keyframes scrollBounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(5px); } }
+/* fade-in: content is visible by default; JS adds .will-animate before observer fires */
+.fade-in { opacity: 1; transform: none; }
+.fade-in.will-animate { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
+.fade-in.will-animate.visible { opacity: 1; transform: none; }

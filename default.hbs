@@ -10,6 +10,9 @@
     <link rel="preload" href="{{asset 'css/screen.css'}}" as="style">
     <link rel="stylesheet" type="text/css" href="{{asset 'css/screen.css'}}">
 
+    {{!-- Ensure fade-in content is visible when JS is disabled --}}
+    <noscript><style>.fade-in { opacity: 1 !important; transform: none !important; }</style></noscript>
+
     {{!-- Ghost head (SEO, structured data, members) - MUST be last in <head> --}}
     {{ghost_head}}
 </head>

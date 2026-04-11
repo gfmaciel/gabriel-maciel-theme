@@ -61,14 +61,24 @@ Projetos      /projetos/
 
 ## Theme Installation
 
-### Option A: Zip upload (recommended)
+### Option A: GitHub auto-deploy (active)
+This repo is connected to Ghost via the **GitHub integration** (Settings → Integrations → GitHub). Pushing to `main` automatically deploys the updated theme to the live site — no manual upload needed.
+
+```bash
+git add .
+git commit -m "your change"
+git push origin main
+# Ghost pulls and activates the new theme within ~30 seconds
+```
+
+### Option B: Zip upload (manual)
 ```bash
 # From the theme root folder:
 zip -r gabriel-maciel-theme.zip . -x "*.git*" -x "reference/*" -x "node_modules/*"
 ```
 Upload the zip via Ghost Admin → **Settings → Design → Upload theme**.
 
-### Option B: Direct deployment on EasyPanel
+### Option C: Direct deployment on EasyPanel
 If Ghost is running via EasyPanel with volume mounts, copy the theme folder into:
 ```
 /var/lib/ghost/content/themes/gabriel-maciel-theme/
