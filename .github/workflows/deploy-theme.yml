@@ -91,3 +91,50 @@ jobs:
           cat activate_body.txt
 
           test "$ACTIVATE_STATUS" -ge 200 -a "$ACTIVATE_STATUS" -lt 300
+
+      - name: Upload routes.yaml to Ghost settings
+        env:
+          GHOST_URL: ${{ secrets.GHOST_ADMIN_API_URL }}
+          GHOST_KEY: ${{ secrets.GHOST_ADMIN_API_KEY }}
+          GHOST_ACCEPT_VERSION: v6.0
+        run: |
+          set -o pipefail
+
+          TOKEN=$(node -e "
+            const crypto = require('crypto');
+            const [id, secret] = process.env.GHOST_KEY.split(':');
+            const now = Math.floor(Date.now() / 1000);
+            const h = Buffer.from(JSON.stringify({alg:'HS256',kid:id,typ:'JWT'})).toString('base64url');
+            const p = Buffer.from(JSON.stringify({iat:now,exp:now+300,aud:'/admin/'})).toString('base64url');
+            const s = crypto.createHmac('sha256', Buffer.from(secret, 'hex')).update(h + '.' + p).digest('base64url');
+            console.log(h + '.' + p + '.' + s);
+          ")
+
+          echo "Uploading routes.yaml..."
+          ROUTES_STATUS=$(curl -sS \
+            -o routes_body.txt \
+            -w "%{http_code}" \
+            -X PUT \
+            -H "Authorization: Ghost $TOKEN" \
+            -H "Accept-Version: $GHOST_ACCEPT_VERSION" \
+            -F "routes=@routes.yaml;type=application/yaml" \
+            "${GHOST_URL%/}/ghost/api/admin/settings/routes/yaml" || true)
+
+          echo "Routes upload HTTP status: $ROUTES_STATUS"
+          cat routes_body.txt || true
+
+          echo "Uploading redirects.yaml..."
+          REDIRECTS_STATUS=$(curl -sS \
+            -o redirects_body.txt \
+            -w "%{http_code}" \
+            -X PUT \
+            -H "Authorization: Ghost $TOKEN" \
+            -H "Accept-Version: $GHOST_ACCEPT_VERSION" \
+            -F "redirects=@redirects.yaml;type=application/yaml" \
+            "${GHOST_URL%/}/ghost/api/admin/settings/redirects/yaml" || true)
+
+          echo "Redirects upload HTTP status: $REDIRECTS_STATUS"
+          cat redirects_body.txt || true
+
+          # Don't fail the workflow if these endpoints don't exist (non-critical, just log)
+          echo "Routes and redirects upload completed (status logged above)"
