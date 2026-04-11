@@ -70,7 +70,13 @@ jobs:
             console.log(h + '.' + p + '.' + s);
           ")
 
-          THEME_NAME=$(node -e "const p=require('./package.json'); console.log(p.name);")
+          # Read the theme name from the upload response (body.txt written by previous step)
+          THEME_NAME=$(node -e "
+            const d = require('fs').readFileSync('body.txt', 'utf8');
+            const themes = JSON.parse(d).themes;
+            if (themes && themes[0] && themes[0].name) { console.log(themes[0].name); }
+            else { process.exit(1); }
+          ")
           echo "Activating theme: $THEME_NAME"
 
           ACTIVATE_STATUS=$(curl -sS \
@@ -79,8 +85,6 @@ jobs:
             -X PUT \
             -H "Authorization: Ghost $TOKEN" \
             -H "Accept-Version: $GHOST_ACCEPT_VERSION" \
-            -H "Content-Type: application/json" \
-            -d '{}' \
             "${GHOST_URL%/}/ghost/api/admin/themes/${THEME_NAME}/activate")
 
           echo "Activate HTTP status: $ACTIVATE_STATUS"

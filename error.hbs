@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{statusCode}} — Gabriel Maciel</title>
+    <title>Erro</title>
     <link rel="stylesheet" type="text/css" href="/assets/css/screen.css">
 </head>
 <body>
@@ -20,18 +20,13 @@
 <section style="background: #0C2D3E; min-height: 100vh; display: flex; align-items: center; padding: 80px 32px; position: relative; overflow: hidden;">
     <div style="position: absolute; inset: 0; opacity: 0.04; background-image: radial-gradient(circle, #fff 1px, transparent 1px); background-size: 24px 24px; pointer-events: none;"></div>
     <div style="max-width: 560px; margin: 0 auto; text-align: center; position: relative;">
-        <div class="serif" style="font-size: 120px; font-weight: 700; color: rgba(212,169,32,0.15); line-height: 1; margin-bottom: -20px;">{{statusCode}}</div>
+        <div class="serif" style="font-size: 120px; font-weight: 700; color: rgba(212,169,32,0.15); line-height: 1; margin-bottom: -20px;">404</div>
         <div style="width: 44px; height: 3px; background: #D4A920; border-radius: 2px; margin: 0 auto 20px;"></div>
         <h1 class="serif" style="font-size: clamp(28px, 5vw, 42px); font-weight: 700; color: #FFFFFF; margin-bottom: 16px; line-height: 1.15;">
-            {{#if errorMessage}}{{errorMessage}}{{else}}Página não encontrada{{/if}}
+            Página não encontrada
         </h1>
         <p class="sans" style="font-size: 16px; color: rgba(255,255,255,0.5); line-height: 1.7; margin-bottom: 36px;">
-            {{#if statusCode}}
-                {{#is statusCode "404"}}A página que você procura não existe ou foi movida.{{/is}}
-                {{#is statusCode "500"}}Algo deu errado no servidor. Tente novamente em alguns instantes.{{/is}}
-            {{else}}
-                Algo deu errado. Tente voltar para o início.
-            {{/if}}
+            A página que você procura não existe ou foi movida.
         </p>
         <div style="display: flex; gap: 14px; justify-content: center; flex-wrap: wrap;">
             <a href="/" class="btn-gold" style="text-decoration: none;">Voltar para o início</a>
