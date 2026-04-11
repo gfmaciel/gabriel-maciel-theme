@@ -1,13 +1,10 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="refresh" content="0;url=/posts/">
-    <link rel="canonical" href="{{@site.url}}/posts/">
-    <title>Artigos — gabrielmaciel.com.br</title>
-</head>
-<body>
+{{!< default}}
+
+{{!-- /artigos/ → /posts/ redirect template --}}
 <script>window.location.replace('/posts/');</script>
-<noscript><p><a href="/posts/">Ver artigos →</a></p></noscript>
-</body>
-</html>
+<noscript>
+    <meta http-equiv="refresh" content="0;url=/posts/">
+    <p style="padding: 80px 32px; font-family: -apple-system, sans-serif;">
+        <a href="/posts/">Ver artigos →</a>
+    </p>
+</noscript>

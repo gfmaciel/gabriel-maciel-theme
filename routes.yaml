@@ -4,6 +4,7 @@ routes:
     data: page.home
   /artigos/:
     template: artigos-redirect
+    data: false
 
 collections:
   /posts/:
