@@ -2,14 +2,13 @@ name: Deploy Theme to Ghost
 
 on:
   push:
-    branches:
-      - main
+    branches: [main]
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - name: Zip theme
         run: zip -r theme.zip . -x "*.git*" "*.zip" "node_modules/*"
@@ -18,20 +17,37 @@ jobs:
         env:
           GHOST_URL: ${{ secrets.GHOST_ADMIN_API_URL }}
           GHOST_KEY: ${{ secrets.GHOST_ADMIN_API_KEY }}
+          # set this to your Ghost API version, e.g. v6.0
+          GHOST_ACCEPT_VERSION: v6.0
         run: |
+          set -o pipefail
+
           TOKEN=$(node -e "
             const crypto = require('crypto');
             const [id, secret] = process.env.GHOST_KEY.split(':');
             const now = Math.floor(Date.now() / 1000);
             const h = Buffer.from(JSON.stringify({alg:'HS256',kid:id,typ:'JWT'})).toString('base64url');
             const p = Buffer.from(JSON.stringify({iat:now,exp:now+300,aud:'/admin/'})).toString('base64url');
-            const s = crypto.createHmac('sha256',Buffer.from(secret,'hex')).update(h+'.'+p).digest('base64url');
-            console.log(h+'.'+p+'.'+s);
+            const s = crypto.createHmac('sha256', Buffer.from(secret, 'hex')).update(h + '.' + p).digest('base64url');
+            console.log(h + '.' + p + '.' + s);
           ")
-          echo "Token generated: ${TOKEN:0:20}..."
-          echo "Hitting URL: ${GHOST_URL}/ghost/api/admin/themes/upload"
-          curl -v -X POST \
-            "${GHOST_URL}/ghost/api/admin/themes/upload" \
+
+          ENDPOINT="${GHOST_URL%/}/ghost/api/admin/themes/upload"
+          echo "Endpoint: $ENDPOINT"
+
+          STATUS=$(curl -sS \
+            -D headers.txt \
+            -o body.txt \
+            -w "%{http_code}" \
             -H "Authorization: Ghost $TOKEN" \
+            -H "Accept-Version: $GHOST_ACCEPT_VERSION" \
             -F "file=@theme.zip;type=application/zip" \
-            2>&1 || true
+            "$ENDPOINT" || true)
+
+          echo "HTTP status: $STATUS"
+          echo "--- headers ---"
+          sed -n '1,80p' headers.txt
+          echo "--- body ---"
+          sed -n '1,120p' body.txt
+
+          test "$STATUS" -ge 200 -a "$STATUS" -lt 300
