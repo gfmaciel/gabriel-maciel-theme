@@ -67,7 +67,7 @@
 {{!-- ── ARTIGOS ── --}}
 <section id="artigos" class="section" style="background: #FFFFFF;">
     <div style="max-width: 860px; margin: 0 auto;">
-        {{> section-header label="Artigos" title="O que escrevo" action_href="{{@site.url}}/posts/" action_label="Ver todos →"}}
+        {{> section-header label="Artigos" title="O que escrevo" action_href="/posts/" action_label="Ver todos →"}}
 
         <div>
             {{#get "posts" filter="visibility:public+tag:-hash-projetos" limit="4"}}
