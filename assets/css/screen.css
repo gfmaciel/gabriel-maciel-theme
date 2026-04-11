@@ -128,7 +128,7 @@ a { text-decoration: none; color: inherit; }
 .archive-grid { padding: 56px 32px; }
 .archive-list { display: flex; flex-direction: column; gap: 0; max-width: 860px; margin: 0 auto; }
 .archive-filter { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 36px; }
-.filter-btn { background: none; border: 1.5px solid #DDE4E8; border-radius: 20px; padding: 6px 16px; font-size: 12px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: #6B7E8C; cursor: pointer; transition: all 0.2s; font-family: -apple-system, 'Segoe UI', sans-serif; }
+.filter-btn { background: none; border: 1.5px solid #DDE4E8; border-radius: 20px; padding: 6px 16px; font-size: 13px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: #6B7E8C; cursor: pointer; transition: all 0.2s; font-family: -apple-system, 'Segoe UI', sans-serif; }
 .filter-btn:hover, .filter-btn.active { border-color: #D4A920; color: #7A5800; background: #FBF3D0; }
 .pagination { display: flex; align-items: center; justify-content: center; gap: 12px; padding: 48px 32px; }
 .pagination a, .pagination .page-number { display: inline-flex; align-items: center; justify-content: center; min-width: 40px; height: 40px; padding: 0 12px; border-radius: 6px; font-size: 14px; font-weight: 600; font-family: -apple-system, 'Segoe UI', sans-serif; border: 1.5px solid #DDE4E8; color: #3A4A56; transition: all 0.2s; }

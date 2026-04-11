@@ -2,6 +2,8 @@ routes:
   /:
     template: home
     data: page.home
+  /artigos/:
+    template: artigos-redirect
 
 collections:
   /posts/:
