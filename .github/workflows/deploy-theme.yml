@@ -51,3 +51,34 @@ jobs:
           sed -n '1,120p' body.txt
 
           test "$STATUS" -ge 200 -a "$STATUS" -lt 300
+
+      - name: Activate theme
+        env:
+          GHOST_URL: ${{ secrets.GHOST_ADMIN_API_URL }}
+          GHOST_KEY: ${{ secrets.GHOST_ADMIN_API_KEY }}
+          GHOST_ACCEPT_VERSION: v6.0
+        run: |
+          set -o pipefail
+
+          TOKEN=$(node -e "
+            const crypto = require('crypto');
+            const [id, secret] = process.env.GHOST_KEY.split(':');
+            const now = Math.floor(Date.now() / 1000);
+            const h = Buffer.from(JSON.stringify({alg:'HS256',kid:id,typ:'JWT'})).toString('base64url');
+            const p = Buffer.from(JSON.stringify({iat:now,exp:now+300,aud:'/admin/'})).toString('base64url');
+            const s = crypto.createHmac('sha256', Buffer.from(secret, 'hex')).update(h + '.' + p).digest('base64url');
+            console.log(h + '.' + p + '.' + s);
+          ")
+
+          ACTIVATE_STATUS=$(curl -sS \
+            -o activate_body.txt \
+            -w "%{http_code}" \
+            -X PUT \
+            -H "Authorization: Ghost $TOKEN" \
+            -H "Accept-Version: $GHOST_ACCEPT_VERSION" \
+            "${GHOST_URL%/}/ghost/api/admin/themes/gabriel-maciel-theme/activate")
+
+          echo "Activate HTTP status: $ACTIVATE_STATUS"
+          cat activate_body.txt
+
+          test "$ACTIVATE_STATUS" -ge 200 -a "$ACTIVATE_STATUS" -lt 300
