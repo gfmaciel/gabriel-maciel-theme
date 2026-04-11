@@ -3,6 +3,7 @@
 {{!-- Generic static page fallback --}}
 {{#post}}
 
+{{#match @page.show_title_and_feature_image}}
 <section style="background: #0C2D3E; padding: 80px 32px 64px;">
     <div style="max-width: 760px; margin: 0 auto;">
         {{#if primary_tag}}
@@ -21,6 +22,7 @@
     <img src="{{img_url feature_image size='l'}}" alt="{{title}}" style="width: 100%; object-fit: cover; display: block;">
 </div>
 {{/if}}
+{{/match}}
 
 <article style="max-width: 720px; margin: 0 auto; padding: 56px 32px;">
     <div class="post-content">

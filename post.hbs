@@ -47,9 +47,9 @@
     {{#if tags}}
     <div class="post-tags">
         {{#foreach tags}}
-        {{#unless (eq visibility "internal")}}
+        {{#match visibility "!=" "internal"}}
         <a href="{{url}}" class="pill" style="text-decoration: none; margin-bottom: 4px;">{{name}}</a>
-        {{/unless}}
+        {{/match}}
         {{/foreach}}
     </div>
     {{/if}}
