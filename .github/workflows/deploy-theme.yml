@@ -70,19 +70,20 @@ jobs:
             console.log(h + '.' + p + '.' + s);
           ")
 
+          THEME_NAME=$(node -e "const p=require('./package.json'); console.log(p.name);")
+          echo "Activating theme: $THEME_NAME"
+
           ACTIVATE_STATUS=$(curl -sS \
             -o activate_body.txt \
             -w "%{http_code}" \
             -X PUT \
             -H "Authorization: Ghost $TOKEN" \
             -H "Accept-Version: $GHOST_ACCEPT_VERSION" \
-            "${GHOST_URL%/}/ghost/api/admin/themes/gabriel-maciel-theme/activate")
+            -H "Content-Type: application/json" \
+            -d '{}' \
+            "${GHOST_URL%/}/ghost/api/admin/themes/${THEME_NAME}/activate")
 
           echo "Activate HTTP status: $ACTIVATE_STATUS"
           cat activate_body.txt
 
-          if test "$ACTIVATE_STATUS" -ge 200 -a "$ACTIVATE_STATUS" -lt 300; then
-            echo "Theme activated successfully."
-          else
-            echo "Warning: activation returned $ACTIVATE_STATUS — upload already applied theme in place."
-          fi
+          test "$ACTIVATE_STATUS" -ge 200 -a "$ACTIVATE_STATUS" -lt 300
