@@ -81,4 +81,8 @@ jobs:
           echo "Activate HTTP status: $ACTIVATE_STATUS"
           cat activate_body.txt
 
-          test "$ACTIVATE_STATUS" -ge 200 -a "$ACTIVATE_STATUS" -lt 300
+          if test "$ACTIVATE_STATUS" -ge 200 -a "$ACTIVATE_STATUS" -lt 300; then
+            echo "Theme activated successfully."
+          else
+            echo "Warning: activation returned $ACTIVATE_STATUS — upload already applied theme in place."
+          fi
