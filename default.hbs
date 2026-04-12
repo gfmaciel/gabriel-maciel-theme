@@ -7,8 +7,11 @@
     <link rel="canonical" href="{{canonical_url}}">
 
     {{!-- Theme stylesheet --}}
-    <link rel="preload" href="{{asset 'css/screen.css'}}" as="style">
     <link rel="stylesheet" type="text/css" href="{{asset 'css/screen.css'}}">
+
+    {{!-- Preconnect for external resources --}}
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
 
     {{!-- Ensure fade-in content is visible when JS is disabled --}}
     <noscript><style>.fade-in { opacity: 1 !important; transform: none !important; }</style></noscript>
@@ -33,7 +36,7 @@
     {{> footer}}
 
     {{!-- Theme JS --}}
-    <script src="{{asset 'js/main.js'}}"></script>
+    <script src="{{asset 'js/main.js'}}" defer></script>
 
     {{!-- Ghost foot (portal, search, etc.) - MUST be before </body> --}}
     {{ghost_foot}}

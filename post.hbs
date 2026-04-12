@@ -29,7 +29,7 @@
 {{!-- Feature image --}}
 {{#if feature_image}}
 <div style="max-height: 480px; overflow: hidden;">
-    <img src="{{img_url feature_image size='l'}}" alt="{{#if feature_image_alt}}{{feature_image_alt}}{{else}}{{title}}{{/if}}" class="post-feature-image">
+    <img src="{{img_url feature_image size='l' format='webp'}}" alt="{{#if feature_image_alt}}{{feature_image_alt}}{{else}}{{title}}{{/if}}" width="1000" height="563" class="post-feature-image">
 </div>
 {{/if}}
 
@@ -58,7 +58,7 @@
     {{#if primary_author}}
     <div class="post-author">
         {{#if primary_author.profile_image}}
-        <img src="{{img_url primary_author.profile_image size='xs'}}" alt="{{primary_author.name}}" loading="lazy">
+        <img src="{{img_url primary_author.profile_image size='xs' format='webp'}}" alt="{{primary_author.name}}" width="64" height="64" loading="lazy">
         {{else}}
         <div style="width: 64px; height: 64px; border-radius: 50%; background: #0C2D3E; display: flex; align-items: center; justify-content: center; font-size: 24px; font-weight: 700; color: #D4A920; font-family: Georgia, serif; flex-shrink: 0;">GM</div>
         {{/if}}
@@ -93,7 +93,7 @@
                 <div class="card" style="height: 100%; display: flex; flex-direction: column;">
                     {{#if feature_image}}
                     <div style="aspect-ratio: 16/9; overflow: hidden;">
-                        <img src="{{img_url feature_image size='s'}}" alt="{{title}}" style="width: 100%; height: 100%; object-fit: cover; display: block;" loading="lazy">
+                        <img src="{{img_url feature_image size='s' format='webp'}}" alt="{{title}}" width="400" height="225" style="width: 100%; height: 100%; object-fit: cover; display: block;" loading="lazy">
                     </div>
                     {{/if}}
                     <div style="padding: 18px 20px; flex: 1; display: flex; flex-direction: column;">
