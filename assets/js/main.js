@@ -7,72 +7,21 @@
    Helpers
 ───────────────────────────────────────────── */
 
-/**
- * Create an SVG element from a plain string.
- * The string is parsed in a detached document so the result is safe and
- * no user-controlled content ever reaches this function.
- */
-function parseSvg(svgString) {
-  const parser = new DOMParser();
-  const doc = parser.parseFromString(svgString, 'image/svg+xml');
-  return doc.documentElement;
-}
-
-
 /* ─────────────────────────────────────────────
    1. Mobile hamburger menu
 ───────────────────────────────────────────── */
-function buildHamburgerIcon() {
-  const ns = 'http://www.w3.org/2000/svg';
-  const svg = document.createElementNS(ns, 'svg');
-  svg.setAttribute('width', '24');
-  svg.setAttribute('height', '24');
-  svg.setAttribute('viewBox', '0 0 24 24');
-  svg.setAttribute('fill', 'none');
-  [[6, 6], [12, 12], [18, 18]].forEach(function (y) {
-    const line = document.createElementNS(ns, 'line');
-    line.setAttribute('x1', '3');
-    line.setAttribute('y1', String(y[0]));
-    line.setAttribute('x2', '21');
-    line.setAttribute('y2', String(y[0]));
-    line.setAttribute('stroke', 'currentColor');
-    line.setAttribute('stroke-width', '2');
-    line.setAttribute('stroke-linecap', 'round');
-    svg.appendChild(line);
-  });
-  return svg;
-}
-
-function buildCloseIcon() {
-  const ns = 'http://www.w3.org/2000/svg';
-  const svg = document.createElementNS(ns, 'svg');
-  svg.setAttribute('width', '24');
-  svg.setAttribute('height', '24');
-  svg.setAttribute('viewBox', '0 0 24 24');
-  svg.setAttribute('fill', 'none');
-  const coords = [['4', '4', '20', '20'], ['20', '4', '4', '20']];
-  coords.forEach(function (c) {
-    const line = document.createElementNS(ns, 'line');
-    line.setAttribute('x1', c[0]);
-    line.setAttribute('y1', c[1]);
-    line.setAttribute('x2', c[2]);
-    line.setAttribute('y2', c[3]);
-    line.setAttribute('stroke', 'currentColor');
-    line.setAttribute('stroke-width', '2');
-    line.setAttribute('stroke-linecap', 'round');
-    svg.appendChild(line);
-  });
-  return svg;
-}
-
 function initMobileMenu() {
   const hamburger = document.querySelector('.hamburger');
   const mobileMenu = document.querySelector('.mobile-menu');
   if (!hamburger || !mobileMenu) return;
 
+  const iconHamburger = hamburger.querySelector('.icon-hamburger');
+  const iconClose     = hamburger.querySelector('.icon-close');
+
   function setIcon(type) {
-    hamburger.textContent = ''; // clear
-    hamburger.appendChild(type === 'close' ? buildCloseIcon() : buildHamburgerIcon());
+    const isClose = type === 'close';
+    if (iconHamburger) iconHamburger.style.display = isClose ? 'none' : '';
+    if (iconClose)     iconClose.style.display     = isClose ? '' : 'none';
   }
 
   function openMenu() {
@@ -90,9 +39,6 @@ function initMobileMenu() {
   function isOpen() {
     return mobileMenu.classList.contains('open');
   }
-
-  // Render initial icon
-  setIcon('hamburger');
 
   hamburger.addEventListener('click', function (e) {
     e.stopPropagation();
@@ -350,76 +296,52 @@ function initContactForm() {
 
     const data   = getFormData();
     const errors = validateForm(data);
-    const token  = window._recaptchaToken || null;
 
-    // Show field errors
     let hasErrors = Object.keys(errors).length > 0;
     Object.keys(errors).forEach(function (key) {
       showFieldError(key, errors[key]);
     });
 
-    // reCAPTCHA check
-    const recaptchaErr = formEl.querySelector('.recaptcha-error');
-    if (!token) {
-      if (recaptchaErr) recaptchaErr.style.display = 'block';
-      hasErrors = true;
-    } else {
-      if (recaptchaErr) recaptchaErr.style.display = 'none';
-    }
-
     if (hasErrors) return;
 
-    // Show spinner
     const originalBtnText = submitBtn.textContent;
     submitBtn.disabled = true;
     submitBtn.textContent = 'Enviando…';
 
-    const payload = Object.assign({}, data, { recaptchaToken: token });
+    const siteKey = window.RECAPTCHA_SITE_KEY || '';
 
-    fetch('/api/contact', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload)
-    })
-      .then(function (res) {
-        if (!res.ok) throw new Error('HTTP ' + res.status);
-        showSuccess();
+    function sendWithToken(token) {
+      const payload = Object.assign({}, data, { recaptchaToken: token || '' });
+      fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
       })
-      .catch(function (err) {
-        console.error('[contact form] endpoint not configured or failed:', err);
-        submitBtn.disabled = false;
-        submitBtn.textContent = originalBtnText;
-        showGenericError();
+        .then(function (res) {
+          if (!res.ok) throw new Error('HTTP ' + res.status);
+          showSuccess();
+        })
+        .catch(function (err) {
+          console.error('[contact form] endpoint not configured or failed:', err);
+          submitBtn.disabled = false;
+          submitBtn.textContent = originalBtnText;
+          showGenericError();
+        });
+    }
+
+    if (siteKey && window.grecaptcha) {
+      grecaptcha.ready(function () {
+        grecaptcha.execute(siteKey, { action: 'contact' }).then(sendWithToken);
       });
+    } else {
+      sendWithToken('');
+    }
   });
 }
 
 
 /* ─────────────────────────────────────────────
-   7. reCAPTCHA integration
-───────────────────────────────────────────── */
-window.onRecaptchaLoad = function () {
-  const container = document.getElementById('recaptcha-container');
-  if (!container) return;
-
-  window.grecaptcha.render('recaptcha-container', {
-    sitekey: container.dataset.sitekey,
-    theme: 'light',
-    callback: function (token) {
-      window._recaptchaToken = token;
-    },
-    'expired-callback': function () {
-      window._recaptchaToken = null;
-    },
-    'error-callback': function () {
-      window._recaptchaToken = null;
-    }
-  });
-};
-
-
-/* ─────────────────────────────────────────────
-   8. Hero animation
+   7. Hero animation
 ───────────────────────────────────────────── */
 function initHeroAnimation() {
   setTimeout(function () {

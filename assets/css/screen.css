@@ -283,5 +283,12 @@ a { text-decoration: none; color: inherit; }
 @keyframes scrollBounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(5px); } }
 /* fade-in: content is visible by default; JS adds .will-animate before observer fires */
 .fade-in { opacity: 1; transform: none; }
-.fade-in.will-animate { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
-.fade-in.will-animate.visible { opacity: 1; transform: none; }
+.fade-in.will-animate { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; will-change: opacity, transform; }
+.fade-in.will-animate.visible { opacity: 1; transform: none; will-change: auto; }
+
+/* Skip rendering off-screen sections until they near the viewport */
+#youtube,
+#contato {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 600px;
+}

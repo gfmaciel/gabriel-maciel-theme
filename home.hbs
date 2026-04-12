@@ -91,7 +91,7 @@
 {{!-- ── YOUTUBE ── --}}
 <section id="youtube" class="section" style="background: #F7F8F9; border-top: 1px solid #DDE4E8;">
     <div style="max-width: 860px; margin: 0 auto;">
-        {{> section-header label="YouTube" title="Quer me ver construindo?" action_href="https://www.youtube.com/channel/UCVd9YQXL3zjGjNNLMckR0OA" action_label="Ver canal →"}}
+        {{> section-header label="YouTube" title="Quer me ver construindo?" action_href="https://www.youtube.com/@gabrielmaciel17" action_label="Ver canal →"}}
 
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px;">
             <div class="fade-in" data-delay="0">
@@ -230,7 +230,7 @@
                             </div>
                             <div>
                                 <div class="sans" style="font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #D4A920; margin-bottom: 2px;">LinkedIn</div>
-                                <div class="sans" style="font-size: 13px; color: rgba(255,255,255,0.38);">linkedin.com/in/gabrielmaciel</div>
+                                <div class="sans" style="font-size: 13px; color: rgba(255,255,255,0.38);">linkedin.com/in/gfmaciel</div>
                             </div>
                         </div>
                     </div>
@@ -262,19 +262,10 @@
                             💡 Preencha os campos entre [ ] com as informações do seu negócio.
                         </div>
 
-                        {{!-- reCAPTCHA
-                             ⚠️  REPLACE the sitekey below with your PRODUCTION key before going live.
-                             Current key is Google's TEST key — always passes, zero spam protection.
-                             Register at: https://www.google.com/recaptcha/admin --}}
-                        <div class="recaptcha-wrap">
-                            <div id="recaptcha-container"
-                                data-sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"
-                                style="display: inline-block; border-radius: 6px; overflow: hidden; border: 2px solid transparent; transition: border-color 0.2s;"></div>
-                            <div id="recaptcha-error" class="recaptcha-error-msg" style="display: none;">
-                                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#D94F4F" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-                                Por favor, confirme que você não é um robô.
-                            </div>
-                        </div>
+                        {{!-- reCAPTCHA v3 — invisible, no widget needed.
+                             Site key is injected via Ghost Code Injection (Site Header):
+                             <script>window.RECAPTCHA_SITE_KEY = "YOUR_V3_SITE_KEY";</script>
+                             Token is obtained on submit via grecaptcha.execute() in main.js --}}
 
                         <button type="submit" id="contact-submit" class="btn-gold" style="align-self: flex-start; display: flex; align-items: center; gap: 8px;">
                             Enviar mensagem →
@@ -287,15 +278,17 @@
     </div>
 </section>
 
-{{!-- reCAPTCHA: lazy-loaded when #contato section enters viewport to avoid blocking initial render --}}
+{{!-- reCAPTCHA v3: lazy-loaded when #contato section enters viewport to avoid blocking initial render --}}
 <script>
 (function() {
     var loaded = false;
     var observer = new IntersectionObserver(function(entries) {
         if (entries[0].isIntersecting && !loaded) {
             loaded = true;
+            var siteKey = window.RECAPTCHA_SITE_KEY || '';
+            if (!siteKey) return;
             var s = document.createElement('script');
-            s.src = 'https://www.google.com/recaptcha/api.js?onload=onRecaptchaLoad&render=explicit';
+            s.src = 'https://www.google.com/recaptcha/api.js?render=' + siteKey;
             s.async = true;
             document.head.appendChild(s);
             observer.disconnect();
