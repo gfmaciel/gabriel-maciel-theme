@@ -87,6 +87,50 @@ Then in Ghost Admin → **Settings → Design**, activate the theme.
 
 ---
 
+## Cloudflare Configuration
+
+The site sits behind Cloudflare. The following cache rules are active to reduce TTFB from ~840ms (uncached origin) to ~20-50ms.
+
+### Cache Rule — HTML pages
+
+**Rule name:** `Cache HTML`  
+**Location:** Cloudflare Dashboard → `gabrielmaciel.com.br` → Caching → Cache Rules
+
+| Setting | Value |
+|---------|-------|
+| When | Hostname = `gabrielmaciel.com.br` AND URI path does NOT start with `/ghost/` |
+| Cache status | Eligible for cache |
+| Edge TTL | 2 hours (overrides origin headers) |
+| Browser TTL | 60 seconds |
+
+This rule caches all public HTML at the edge. Ghost Admin (`/ghost/`) is excluded so login and publishing always hit the origin.
+
+Without this rule, Cloudflare returns `cf-cache-status: DYNAMIC` and forwards every request to the server, resulting in ~840ms TTFB.
+
+**Verify it's working:**
+```bash
+curl -sI https://gabrielmaciel.com.br | grep cf-cache-status
+# Expected: cf-cache-status: HIT
+```
+
+### Cache purge on publish
+
+To clear stale HTML after publishing a post:
+
+**Option A — Manual purge (Ghost Admin):**
+Ghost Admin → Settings → Advanced → Integrations → Cloudflare → Purge cache
+
+**Option B — Webhook (automated):**
+1. Ghost Admin → Settings → Integrations → Add custom integration
+2. Add webhook: event `post.published`, URL pointing to a purge endpoint
+3. The endpoint calls: `POST https://api.cloudflare.com/client/v4/zones/{ZONE_ID}/purge_cache`
+   with body `{ "purge_everything": true }` and `Authorization: Bearer {TOKEN}` header
+
+**Required Cloudflare API token permissions for purge:**
+- Zone → Cache Purge → Purge
+
+---
+
 ## Contact Form
 
 The contact form in `page-home.hbs` currently POSTs to `/api/contact` (placeholder).
