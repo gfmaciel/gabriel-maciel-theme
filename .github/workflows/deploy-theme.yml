@@ -138,3 +138,22 @@ jobs:
 
           # Don't fail the workflow if these endpoints don't exist (non-critical, just log)
           echo "Routes and redirects upload completed (status logged above)"
+
+      - name: Purge Cloudflare cache
+        if: ${{ secrets.CF_ZONE_ID != '' && secrets.CF_TOKEN != '' }}
+        env:
+          CF_ZONE_ID: ${{ secrets.CF_ZONE_ID }}
+          CF_TOKEN: ${{ secrets.CF_TOKEN }}
+        run: |
+          echo "Purging Cloudflare cache..."
+          STATUS=$(curl -sS \
+            -o cf_purge_body.txt \
+            -w "%{http_code}" \
+            -X POST "https://api.cloudflare.com/client/v4/zones/${CF_ZONE_ID}/purge_cache" \
+            -H "Authorization: Bearer ${CF_TOKEN}" \
+            -H "Content-Type: application/json" \
+            -d '{"purge_everything":true}')
+          echo "Purge HTTP status: $STATUS"
+          cat cf_purge_body.txt
+          # Non-fatal — if secrets aren't configured, skip silently
+          exit 0
