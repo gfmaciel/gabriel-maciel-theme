@@ -140,11 +140,14 @@ jobs:
           echo "Routes and redirects upload completed (status logged above)"
 
       - name: Purge Cloudflare cache
-        if: ${{ secrets.CF_ZONE_ID != '' && secrets.CF_TOKEN != '' }}
         env:
           CF_ZONE_ID: ${{ secrets.CF_ZONE_ID }}
           CF_TOKEN: ${{ secrets.CF_TOKEN }}
         run: |
+          if [ -z "$CF_ZONE_ID" ] || [ -z "$CF_TOKEN" ]; then
+            echo "CF_ZONE_ID or CF_TOKEN not set — skipping Cloudflare cache purge"
+            exit 0
+          fi
           echo "Purging Cloudflare cache..."
           STATUS=$(curl -sS \
             -o cf_purge_body.txt \
@@ -155,5 +158,3 @@ jobs:
             -d '{"purge_everything":true}')
           echo "Purge HTTP status: $STATUS"
           cat cf_purge_body.txt
-          # Non-fatal — if secrets aren't configured, skip silently
-          exit 0
