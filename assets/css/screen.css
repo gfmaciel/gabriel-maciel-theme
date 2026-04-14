@@ -239,7 +239,8 @@ a { text-decoration: none; color: inherit; }
 .float-field input, .float-field textarea { width: 100%; background: #FFFFFF; border: 1.5px solid #DDE4E8; border-radius: 8px; padding: 26px 16px 10px; font-size: 15px; color: #111820; outline: none; transition: border-color 0.2s, background 0.2s; font-family: -apple-system,'Segoe UI',sans-serif; line-height: 1.6; }
 .float-field input:focus, .float-field textarea:focus { border-color: #D4A920; }
 .float-field textarea { resize: vertical; min-height: 120px; padding-top: 28px; }
-.float-field label { position: absolute; left: 16px; pointer-events: none; transition: all 0.18s ease; font-family: -apple-system,'Segoe UI',sans-serif; }
+.float-field label { position: absolute; left: 16px; top: 18px; font-size: 15px; color: #6B7E8C; pointer-events: none; transition: top 0.18s ease, font-size 0.18s ease, color 0.18s ease; font-family: -apple-system,'Segoe UI',sans-serif; }
+.float-field.focused label, .float-field.has-value label { top: 7px; font-size: 11px; font-weight: 600; color: #D4A920; }
 .float-field.has-error input, .float-field.has-error textarea { background: #FFF5F5; border-color: #D94F4F; }
 .float-field.has-error label { color: #D94F4F; }
 .char-count { position: absolute; bottom: 10px; right: 12px; font-size: 11px; font-family: -apple-system,'Segoe UI',sans-serif; color: #6B7E8C; }
@@ -272,7 +273,7 @@ a { text-decoration: none; color: inherit; }
 }
 @media (max-width: 400px) {
   .hero-ctas { flex-direction: column !important; }
-  .hero-ctas button { width: 100%; justify-content: center; }
+  .hero-ctas button, .hero-ctas a { width: 100%; text-align: center; display: block; }
   .freebie-hero h1 { font-size: 28px; }
 }
 
