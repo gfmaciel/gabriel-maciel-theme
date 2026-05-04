@@ -329,9 +329,9 @@ function initContactForm() {
         });
     }
 
-    if (siteKey && window.grecaptcha) {
-      grecaptcha.ready(function () {
-        grecaptcha.execute(siteKey, { action: 'contact' }).then(sendWithToken);
+    if (siteKey && window.grecaptcha && window.grecaptcha.enterprise) {
+      grecaptcha.enterprise.ready(function () {
+        grecaptcha.enterprise.execute(siteKey, { action: 'contact' }).then(sendWithToken);
       });
     } else {
       sendWithToken('');

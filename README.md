@@ -151,11 +151,11 @@ Deploy a simple Express/Node.js service that:
 The form sends: `{ nome, email, mensagem, recaptchaToken }` as JSON to `POST /api/contact`.
 
 ### reCAPTCHA
-The theme uses reCAPTCHA v2 (checkbox). The test key is hardcoded in `page-home.hbs`:
+The theme uses reCAPTCHA Enterprise (invisible v3). Site key is set via Ghost Code Injection (Site Header):
 ```html
-data-sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"
+<script>window.RECAPTCHA_SITE_KEY = "YOUR_ENTERPRISE_SITE_KEY";</script>
 ```
-Replace with your production site key from [Google reCAPTCHA Admin](https://www.google.com/recaptcha/admin).
+The script loads lazily when the contact section enters the viewport (`enterprise.js`), and `grecaptcha.enterprise.execute()` fires on form submit with `action: 'contact'`. Manage keys at [Google reCAPTCHA Admin](https://www.google.com/recaptcha/admin).
 
 ---
 
